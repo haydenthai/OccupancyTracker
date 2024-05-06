@@ -12,6 +12,12 @@ python3 --version
 python3 -m venv venv
 source venv/bin/activate
 ```
+##For Windows
+
+```bash
+Set-ExecutionPolicy Unrestricted -Scope Process
+python3 -m venv venv
+venv\Scripts\activate
 
 ## install packages
 
