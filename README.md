@@ -12,14 +12,15 @@ python3 --version
 python3 -m venv venv
 source venv/bin/activate
 ```
-##For Windows
+## For Windows
 
 ```bash
 Set-ExecutionPolicy Unrestricted -Scope Process
 python3 -m venv venv
 venv\Scripts\activate
+```
 
-## install packages
+## Install packages
 
 ```bash
 pip install -r requirements.txt
@@ -30,3 +31,6 @@ pip install -r requirements.txt
 ```bash
 python3 main.py
 ```
+## Stop the script
+
+press ''q''
