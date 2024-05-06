@@ -4,6 +4,7 @@ from collections import defaultdict
 import cv2
 import supervision as sv
 from flask import Flask
+from flask import Response
 from ultralytics import YOLO
 
 app = Flask(__name__)
@@ -88,8 +89,9 @@ def webcam():
             cv2.putText(annotated_frame, count_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
             # Display the frame
-            cv2.imshow('Frame', annotated_frame)
-
+            # cv2.imshow('Frame', annotated_frame)
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + cv2.imencode('.jpg', annotated_frame)[1].tobytes() + b'\r\n')
             # Wait for a key press and close the window after a small delay
         else:
             break
@@ -104,4 +106,10 @@ def webcam():
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
-webcam()
+@app.route('/')
+def webcam_display():
+    return Response(webcam(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+if __name__ == '__main__':
+    app.run()
